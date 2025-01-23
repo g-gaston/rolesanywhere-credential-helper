@@ -8,7 +8,7 @@ uname=$(shell uname -s)
 ifeq ($(uname),Darwin)
 	extra_ld_flags=-extldflags '-sectcreate __TEXT __info_plist $(curdir)/Info.plist'
 else
-	extra_ld_flags=
+	extra_ld_flags=-extldflags -static
 endif
 
 build/bin/aws_signing_helper:
@@ -332,4 +332,3 @@ test-clean:
 	$(STOP_SWTPM_TCP) || :
 	$(STOP_SWTPM_UNIX) || :
 	rm -rf $(SWTPMKEYS) $(SWTPMCERTS) $(SWTPM_TMPKEYS) $(SWTPM_STATEDIR)
-
